@@ -31,7 +31,7 @@ app.get('/', (req, res) => {
 
 // Exemple de route pour récupérer des données
 app.get('/data', (req, res) => {
-  const query = 'SELECT * FROM users'; // Assurez-vous que la table 'users' existe
+  const query = 'SELECT * FROM produits'; // Assurez-vous que la table 'produits' existe
 
   db.query(query, (err, results) => {
     if (err) {
