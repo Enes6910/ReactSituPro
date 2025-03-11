@@ -1,24 +1,136 @@
-.App-header {
-  background-color: #ffffff;
-  min-height: 100vh;
-  display: inline-flex;
-  flex-direction: row;
-  align-items: center;
+/* 🌙 Thème sombre et moderne */
+body {
+  background-color: #121212;
+  color: #ffffff;
+  font-family: "Poppins", sans-serif;
+  margin: 0;
+  padding: 0;
+}
+
+/* Conteneur principal */
+.App {
+  text-align: center;
+  padding: 20px;
+}
+
+/* ✅ Barre de navigation en haut à droite */
+.navbar {
+  position: absolute;
+  top: 20px;
+  right: 30px;
+  display: flex;
+  gap: 15px;
+}
+
+.navbar a {
+  text-decoration: none;
+  color: #00bcd4;
+  font-size: 14px;
+  transition: color 0.3s ease-in-out;
+}
+
+.navbar a:hover {
+  color: #00e6e6;
+}
+
+/* ✅ Titre principal légèrement plus petit */
+h1 {
+  font-size: 1.8rem;
+  color: #00bcd4;
+  text-shadow: 0 0 8px #00bcd4;
+}
+
+/* ✅ Formulaire stylé */
+.form-container {
+  display: flex;
   justify-content: center;
-  font-size: calc(10px + 2vmin);
+  gap: 10px;
+  margin: 20px auto;
+}
+
+.form-container input {
+  padding: 10px;
+  border: none;
+  border-radius: 5px;
+  font-size: 16px;
+}
+
+.form-container button {
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  background-color: #00bcd4;
   color: white;
+  font-size: 16px;
+  cursor: pointer;
+  transition: 0.3s;
 }
 
-.naviguer {
-  display: inline-block;
-  text-align: right;
+.form-container button:hover {
+  background-color: #008c9e;
 }
 
-.naviguer a::after {
-  display: inline-block;
-  color: #000;
-  content: '';
-  font-size: 80%;
-  font-weight: bold;
-  padding: 0 3px;
+/* ✅ Liste des produits sous forme de cartes */
+.produits-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 20px;
+}
+
+.produit-card {
+  background: #1e1e1e;
+  padding: 15px;
+  border-radius: 8px;
+  box-shadow: 0px 0px 12px rgba(0, 188, 212, 0.3);
+  min-width: 200px;
+  text-align: center;
+  transition: transform 0.3s ease-in-out;
+}
+
+.produit-card:hover {
+  transform: scale(1.05);
+}
+
+/* ✅ Boutons Modifier & Supprimer */
+.btn-group {
+  margin-top: 10px;
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+}
+
+.edit-btn {
+  background-color: #ffa500;
+  padding: 5px 10px;
+  border: none;
+  border-radius: 5px;
+  color: white;
+  cursor: pointer;
+}
+
+.delete-btn {
+  background-color: #ff4444;
+  padding: 5px 10px;
+  border: none;
+  border-radius: 5px;
+  color: white;
+  cursor: pointer;
+}
+
+/* ✅ Effet d'apparition */
+.fade-in {
+  opacity: 0;
+  animation: fadeInAnimation ease 1.5s forwards;
+}
+
+@keyframes fadeInAnimation {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
