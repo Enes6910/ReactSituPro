@@ -1,7 +1,13 @@
-import React, { useEffect, useState } from 'react';
-import './App.css';
+import React, { useEffect, useState } from "react";
+import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
+import "./App.css";
+import Login from "./Login"; // Assurez-vous que Login.js existe
 
-function App() {
+function Home() {
+  return <h1>Bienvenue sur la page d'accueil</h1>;
+}
+
+function GestionProduits() {
   const [produits, setProduits] = useState([]);
   const [nomproduits, setNomproduits] = useState("");
   const [prix, setPrix] = useState("");
@@ -11,8 +17,6 @@ function App() {
     fetchProduits();
   }, []);
 
-
-  // Fonction pour récupérer les produits
   const fetchProduits = () => {
     fetch("http://localhost:5000/data")
       .then((response) => response.json())
@@ -20,14 +24,13 @@ function App() {
       .catch((error) => console.error("Erreur:", error));
   };
 
-  // Fonction pour ajouter un produit
   const ajouterProduit = (e) => {
     e.preventDefault();
     const method = editId ? "PUT" : "POST";
     const url = editId
       ? `http://localhost:5000/data/${editId}`
       : "http://localhost:5000/data";
-  
+
     fetch(url, {
       method,
       headers: {
@@ -46,14 +49,12 @@ function App() {
       .catch((error) => console.error("Erreur:", error));
   };
 
-    // Fonction pour supprimer un produit
   const supprimerProduit = (id) => {
     fetch(`http://localhost:5000/data/${id}`, { method: "DELETE" })
       .then(() => fetchProduits())
       .catch((error) => console.error("Erreur:", error));
   };
 
-  // Fonction pour modifier un produit
   const modifierProduit = (produit) => {
     setNomproduits(produit.nomproduits);
     setPrix(produit.prix);
@@ -62,13 +63,7 @@ function App() {
 
   return (
     <div className="App">
-      {/* Navigation en haut à droite */}
-      <nav className="navbar">
-      </nav>
-
       <h1>Liste des produits</h1>
-
-      {/* Formulaire d'ajout/modification */}
       <form onSubmit={ajouterProduit} className="form-container">
         <input
           type="text"
@@ -86,8 +81,6 @@ function App() {
         />
         <button type="submit">{editId ? "Modifier" : "Ajouter"}</button>
       </form>
-
-      {/* Affichage des produits */}
       <div className="produits-container">
         {produits.length > 0 ? (
           produits.map((produit) => (
@@ -106,6 +99,26 @@ function App() {
         )}
       </div>
     </div>
+  );
+}
+
+function App() {
+  return (
+    <Router>
+      <nav className="navbar">
+        <ul>
+          <li><Link to="/">Accueil</Link></li>
+          <li><Link to="/login">Connexion</Link></li>
+          <li><Link to="/produits">Gestion des Produits</Link></li>
+        </ul>
+      </nav>
+
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/login" element={<Login />} />
+        <Route path="/produits" element={<GestionProduits />} />
+      </Routes>
+    </Router>
   );
 }
 
