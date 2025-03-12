@@ -93,7 +93,7 @@ function App() {
           produits.map((produit) => (
             <div key={produit.idproduits} className="produit-card fade-in">
               <p>
-                <strong>{produit.nomproduits}</strong> - {produit.prix} $
+                <strong>{produit.nomproduits}</strong> - {produit.prix} €
               </p>
               <div className="btn-group">
                 <button className="edit-btn" onClick={() => modifierProduit(produit)}>Modifier</button>
