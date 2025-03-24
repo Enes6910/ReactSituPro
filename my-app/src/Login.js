@@ -38,6 +38,7 @@ function Login() {
     <div className="login-container">
       <form onSubmit={handleSubmit}>
         <h2>{isSignup ? "Inscription" : "Connexion"}</h2>
+        {isSignup && (
         <input
           type="text"
           placeholder="Nom d'utilisateur"
@@ -45,6 +46,7 @@ function Login() {
           onChange={(e) => setUsername(e.target.value)}
           required
         />
+      )}
         <input
           type="text"
           placeholder="Adresse mail"
