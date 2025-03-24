@@ -45,7 +45,7 @@ function Login() {
           required
         />
         <input
-          type="motdepasse"
+          type="password"
           placeholder="Mot de passe"
           value={motdepasse}
           onChange={(e) => setMotdepasse(e.target.value)}
