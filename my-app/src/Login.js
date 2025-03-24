@@ -3,6 +3,7 @@ import "./Login.css";
 
 function Login() {
   const [username, setUsername] = useState("");
+  const [email, setEmail] = useState("")
   const [motdepasse, setMotdepasse] = useState("");
   const [message, setMessage] = useState("");
   const [isSignup, setIsSignup] = useState(false); // Mode Connexion/Inscription
@@ -15,7 +16,7 @@ function Login() {
       fetch("http://localhost:5000/register", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ username, motdepasse }),
+        body: JSON.stringify({ username, email, motdepasse }),
       })
         .then((res) => res.json())
         .then((data) => setMessage(data.message))
@@ -25,7 +26,7 @@ function Login() {
       fetch("http://localhost:5000/login", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ username, motdepasse }),
+        body: JSON.stringify({ username, email, motdepasse }),
       })
         .then((res) => res.json())
         .then((data) => setMessage(data.message))
@@ -42,6 +43,13 @@ function Login() {
           placeholder="Nom d'utilisateur"
           value={username}
           onChange={(e) => setUsername(e.target.value)}
+          required
+        />
+        <input
+          type="text"
+          placeholder="Adresse mail"
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
           required
         />
         <input

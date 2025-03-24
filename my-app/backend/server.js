@@ -32,9 +32,9 @@ app.use(cors());
 
 // Route pour l'inscription
 app.post("/register", async (req, res) => {
-  const { username, motdepasse } = req.body;
+  const { username, email, motdepasse } = req.body;
 
-  if (!username || !motdepasse) {
+  if (!username || !email || !motdepasse) {
     return res.status(400).json({ message: "Tous les champs sont requis" });
   }
 
@@ -48,7 +48,7 @@ app.post("/register", async (req, res) => {
     const hashedPassword = await bcrypt.hash(motdepasse, 10);
 
     // Insérer l'utilisateur
-    db.query("INSERT INTO users (username, motdepasse) VALUES (?, ?)", [username, hashedPassword], (err, result) => {
+    db.query("INSERT INTO users (username, email, motdepasse) VALUES (?, ?, ?)", [username, email, hashedPassword], (err, result) => {
       if (err) return res.status(500).json({ message: "Erreur lors de l'inscription" });
       res.status(201).json({ message: "Inscription réussie !" });
     });
@@ -57,9 +57,9 @@ app.post("/register", async (req, res) => {
 
 // Route pour la connexion
 app.post("/login", (req, res) => {
-  const { username, motdepasse } = req.body;
+  const {email, motdepasse } = req.body;
 
-  db.query("SELECT * FROM users WHERE username = ?", [username], async (err, result) => {
+  db.query("SELECT * FROM users WHERE email = ?", [email], async (err, result) => {
     if (result.length === 0) {
       return res.status(401).json({ message: "Utilisateur non trouvé" });
     }
@@ -72,7 +72,7 @@ app.post("/login", (req, res) => {
     }
 
     // Générer un token JWT
-    const token = jwt.sign({ id: user.id, username: user.username }, "secretkey", { expiresIn: "1h" });
+    const token = jwt.sign({email: user.email, username: user.username }, "secretkey", { expiresIn: "1h" });
 
     res.json({ message: "Connexion réussie !", token });
   });
@@ -174,24 +174,7 @@ app.delete("/data/:id", (req, res) => {
 });
 
 // ✅ Ajouter un user
-app.post("/register", (req, res) => {
-  const { username, motdepasse } = req.body;
-  if (!username || !motdepasse) {
-    return res.status(400).send({ message: "Champs manquants" });
-  }
-  db.query(
-    "INSERT INTO users (username, motdepasse) VALUES (?, ?)",
-    [username, motdepasse],
-    (err, result) => {
-      if (err) {
-        console.error(err);
-        res.status(500).send({ message: "Erreur serveur" });
-        return;
-      }
-      res.send({ message: "Utilisateur ajouté avec succès", id: result.insertId });
-    }
-  );
-});
+
 
 
 // Lancer le serveur

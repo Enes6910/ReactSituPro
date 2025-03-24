@@ -1,11 +1,9 @@
 import React, { useEffect, useState } from "react";
 import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
 import "./App.css";
+import "./Login.css"
 import Login from "./Login"; // Assurez-vous que Login.js existe
 
-function Home() {
-  return <h1>Bienvenue sur la page d'accueil</h1>;
-}
 
 function GestionProduits() {
   const [produits, setProduits] = useState([]);
@@ -107,16 +105,14 @@ function App() {
     <Router>
       <nav className="navbar">
         <ul>
-          <li><Link to="/">Accueil</Link></li>
-          <li><Link to="/login">Connexion</Link></li>
-          <li><Link to="/produits">Gestion des Produits</Link></li>
+          <li><Link to="/">Connexion</Link></li>
+          <li><Link to="/gestionproduit">Gestion des Produits</Link></li>
         </ul>
       </nav>
 
       <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/login" element={<Login />} />
-        <Route path="/produits" element={<GestionProduits />} />
+        <Route path="/" element={<Login />} />
+        <Route path="/gestionproduit" element={<GestionProduits />} />
       </Routes>
     </Router>
   );
