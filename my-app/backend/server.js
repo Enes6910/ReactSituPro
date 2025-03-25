@@ -14,7 +14,7 @@ app.use(express.json()); // 🚨 Permet de lire le JSON des requêtes POST
 const db = mysql.createConnection({
   host: 'localhost',     // L'adresse du serveur MariaDB
   user: 'root',          // L'utilisateur de la base de données
-  password: 'Enes2510SW!!', // Le mot de passe de l'utilisateur
+  password: '', // Le mot de passe de l'utilisateur
   database: 'situationpro'  // Le nom de la base de données
 });
 
@@ -98,7 +98,7 @@ app.get('/data', (req, res) => {
     if (results.length > 0) {
       res.json(results); // Renvoie les résultats sous forme de JSON
     } else {
-      res.json({ message: 'Aucun utilisateur trouvé' });
+      res.json({ message: 'Aucun produit trouvé' });
     }
   });
 });
