@@ -55,30 +55,6 @@ app.post("/register", async (req, res) => {
   });
 });
 
-// Route pour la connexion
-app.post("/login", (req, res) => {
-  const {email, motdepasse } = req.body;
-
-  db.query("SELECT * FROM users WHERE email = ?", [email], async (err, result) => {
-    if (result.length === 0) {
-      return res.status(401).json({ message: "Utilisateur non trouvé" });
-    }
-
-    const user = result[0];
-    const isMatch = await bcrypt.compare(motdepasse, user.motdepasse);
-
-    if (!isMatch) {
-      return res.status(401).json({ message: "Mot de passe incorrect" });
-    }
-
-    // Générer un token JWT
-    const token = jwt.sign({email: user.email, username: user.username }, "secretkey", { expiresIn: "1h" });
-
-    res.json({ message: "Connexion réussie !", token });
-  });
-});
-
-
 // Route de base pour éviter l'erreur "Cannot GET /"
 app.get('/', (req, res) => {
   res.send('Bienvenue sur le serveur Express !');
